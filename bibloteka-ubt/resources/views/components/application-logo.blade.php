@@ -1,0 +1,1 @@
+<img class="h-12" src="/images/bookin.png" alt="">
