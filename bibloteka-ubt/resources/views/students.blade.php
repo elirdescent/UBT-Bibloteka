@@ -264,17 +264,7 @@
                                 <span class="text-xs xs:text-sm text-gray-900">
                                     Showing 1 to 4 of 50 Entries
                                 </span>
-                                <div class="inline-flex mt-2 xs:mt-0">
-                                    <button
-                                        class="text-sm text-indigo-50 transition duration-150 hover:bg-blue-800 bg-blue-600 font-semibold py-2 px-4 rounded-l">
-                                        Prev
-                                    </button>
-                                    &nbsp; &nbsp;
-                                    <button
-                                        class="text-sm text-indigo-50 transition duration-150 hover:bg-blue-800 bg-blue-600 font-semibold py-2 px-4 rounded-r">
-                                        Next
-                                    </button>
-                                </div>
+                             
                             </div>
                         </div>
                     </div>

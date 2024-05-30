@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/loans/{id}', [LoanController::class, 'update'])->name('loans.update');
     Route::delete('/loans/{id}', [LoanController::class, 'destroy'])->name('loans.destroy');
     Route::patch('/loans/{id}/return', [LoanController::class, 'returnBook'])->name('loans.return');
+    Route::get('/loans/search', [LoanController::class, 'search'])->name('loans.search');
     Route::post('students/checkin', [StudentController::class, 'checkIn'])->name('students.check-in');
 });
 

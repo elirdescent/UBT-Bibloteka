@@ -79,5 +79,31 @@ public function returnBook($id)
     return redirect()->route('loans');
 }
 
+public function search(Request $request)
+{
+    $searchTerm = $request->input('search');
+
+    $query = Loan::with('book', 'student');
+
+    if (!empty($searchTerm)) {
+        $query->whereHas('book', function (Builder $query) use ($searchTerm) {
+            $query->where('title', 'like', '%' . $searchTerm . '%');
+        })->orWhereHas('student', function (Builder $query) use ($searchTerm) {
+            $query->where('name', 'like', '%' . $searchTerm . '%');
+        })->orWhere(function ($query) use ($searchTerm) {
+            $query->where('borrowed_at', 'like', '%' . $searchTerm . '%')
+                  ->orWhere('returned_at', 'like', '%' . $searchTerm . '%');
+        });
+    }
+
+    $loans = $query->get();
+    $books = Book::whereDoesntHave('loans', function (Builder $query) {
+        $query->whereNull('returned_at');
+    })->get();
+    $students = Student::all();
+
+    return view('loans', compact('loans', 'books', 'students'));
+}
+
 
 }
