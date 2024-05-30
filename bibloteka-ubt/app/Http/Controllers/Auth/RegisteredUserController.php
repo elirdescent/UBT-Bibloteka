@@ -35,16 +35,32 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        try {
+            // Create a new user
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+    
+            // Fire the Registered event
+            event(new Registered($user));
+    
+            // Log the user in
+            Auth::login($user);
+    
+            // Redirect to the dashboard
+            return redirect(route('dashboard', absolute: false));
+        } catch (\Exception $e) {
+            // Log the error for further analysis
+         
+    
+            // Send a notification to the user
+            notify()->error('An error occurred during registration. Please try again.');
+    
+            // Redirect back with input except the password
+            return redirect()->back()->withInput($request->except('password'));
+        }
+        
     }
 }

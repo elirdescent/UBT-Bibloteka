@@ -24,7 +24,7 @@
 		<div class="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
 	</div>
 	<div class="flex md:w-1/2 justify-center py-10 items-center bg-gray-900">
-		<form >
+		<form method="POST" action="{{ route('register') }}" >
             @csrf
         
             <!-- Name -->
